@@ -1,0 +1,10 @@
+<div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+  <%= render "ui/field", label: "Crop", value: "Almond" %>
+  <%= render "ui/field", label: "Variety", value: "Generic" %>
+  <%= render "ui/field", label: "Expected vol", value: "--" %>
+  <%= render("ui/field", label: "Stage") do %>
+    <%= render "ui/badge", text: "Fruit development", variant: "success", size: "sm" %>
+  <% end %>
+  <%= render "ui/field", label: "Area", value: "0.53 ha" %>
+  <%= render "ui/field", label: "Supplier", value: "Default" %>
+</div>

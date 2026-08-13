@@ -1,0 +1,5 @@
+<%# locals: (text:, variant: "primary", size: "md", disabled: false, icon: nil) %>
+<button variant="<%= variant %>" size="<%= size %>" <%= "disabled" if disabled %>>
+  <% if icon %><%= icon %><% end %>
+  <%= text %>
+</button>

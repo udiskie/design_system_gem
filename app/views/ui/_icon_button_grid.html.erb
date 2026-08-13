@@ -1,0 +1,11 @@
+<div class="flex flex-wrap gap-4 items-end">
+  <% %w[outline tinted ghost].each do |variant| %>
+    <% %w[sm md lg].each do |size| %>
+      <%= render "ui/icon_button",
+        icon: lucide_icon("arrow-up-right", class: "h-4 w-4"),
+        variant: variant,
+        shape: variant == "tinted" ? "round" : "square",
+        size: size %>
+    <% end %>
+  <% end %>
+</div>

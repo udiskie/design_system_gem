@@ -1,0 +1,26 @@
+<button variant="primary" size="md" data-dialog-trigger="dialog-default">
+  Configure irrigation
+</button>
+
+<%= render "ui/dialog", id: "dialog-default", size: "lg", title: "Configure irrigation", description: "Configure this zone to get irrigation recommendations" do %>
+  <div data-type="dialog-body">
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="mb-2 block text-sm font-medium">Irrigation Threshold</label>
+        <%= render "ui/select", options: %w[10% 20% 30%], size: "md" %>
+      </div>
+      <div>
+        <label class="mb-2 block text-sm font-medium">Last Irrigation Date</label>
+        <input type="date" value="2026-04-21" />
+      </div>
+      <div class="col-span-2">
+        <label class="mb-2 block text-sm font-medium">Soil Type</label>
+        <%= render "ui/select", options: %w[clay loam sand], size: "md" %>
+      </div>
+    </div>
+  </div>
+
+  <div data-type="dialog-footer" data-layout="full">
+    <button type="button" variant="primary" size="lg" data-dialog-close>Save Configuration</button>
+  </div>
+<% end %>

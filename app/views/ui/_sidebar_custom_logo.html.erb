@@ -1,0 +1,8 @@
+<%= render "ui/sidebar",
+  active_controller: "locations_dashboard",
+  items: [
+    { label: "Dashboard", icon: "house", href: "#", controller: "locations_dashboard" },
+    { label: "Alerts", icon: "triangle-alert", href: "#", controller: "alerts" }
+  ] do %>
+  <span data-slot="sidebar-logo" style="font-weight: 700; font-size: 1.125rem;">Acme Co</span>
+<% end %>

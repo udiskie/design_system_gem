@@ -1,0 +1,12 @@
+<%# locals: (label:, name:, size: "md", checked: false, disabled: false, value: nil) %>
+<label class="flex items-center gap-2">
+  <input
+    type="radio"
+    name="<%= name %>"
+    size="<%= size %>"
+    <% if value %>value="<%= value %>"<% end %>
+    <%= "checked" if checked %>
+    <%= "disabled" if disabled %>
+  />
+  <span><%= label %></span>
+</label>

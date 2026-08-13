@@ -1,0 +1,11 @@
+<%# locals: (label:, size: "md", checked: false, disabled: false, name: nil) %>
+<label class="flex items-center gap-2">
+  <input
+    type="checkbox"
+    size="<%= size %>"
+    <% if name %>name="<%= name %>"<% end %>
+    <%= "checked" if checked %>
+    <%= "disabled" if disabled %>
+  />
+  <span><%= label %></span>
+</label>

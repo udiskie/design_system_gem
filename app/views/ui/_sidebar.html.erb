@@ -1,0 +1,79 @@
+<%# locals: (items:, footer_items: [], user_name: nil, user_email: nil, active_controller: nil, logo: true, edit_profile_url: "#", logout_url: "#", logout_method: :delete) %>
+<%# logo: set to false to omit the built-in image entirely. Pass a block to render a %>
+<%#       custom brand mark instead (takes precedence over logo:). %>
+<%# footer_items entries accept { label:, icon:, href:, active:, method: } — pass method: %>
+<%#   (e.g. :delete) to render the item as a button_to instead of a plain link. %>
+<%# edit_profile_url / logout_url / logout_method: wire up the "Edit my profile" and %>
+<%#   "Logout" options in the popover under the user_name/user_email button. %>
+<aside data-type="sidebar" id="app-sidebar" data-collapsed="false" data-open="false">
+  <%# Header: toggle + logo %>
+  <div data-slot="sidebar-header" class="flex flex-row items-center gap-2 px-2 py-3">
+    <button data-type="sidebar-toggle" data-controller="sidebar" data-action="click->sidebar#toggle" aria-label="Toggle sidebar">
+      <%= lucide_icon("menu", class: "size-5") %>
+    </button>
+    <% custom_logo = yield %>
+    <% if custom_logo.present? %>
+      <%= custom_logo %>
+    <% elsif logo %>
+      <%= image_tag "design_system_logo.svg", alt: "design system gem", data: { slot: "sidebar-logo" } %>
+    <% end %>
+  </div>
+
+  <%# Main navigation %>
+  <div data-slot="sidebar-content">
+    <ul data-slot="sidebar-menu">
+      <% items.each do |item| %>
+        <%= render "ui/sidebar_menu_item",
+          label: item[:label],
+          icon: item[:icon],
+          href: item[:href],
+          active: item[:active] || (active_controller && item[:controller] == active_controller),
+          method: item[:method] %>
+      <% end %>
+    </ul>
+  </div>
+
+  <%# Footer %>
+  <div data-slot="sidebar-footer">
+    <ul data-slot="sidebar-menu" class="list-none border-t border-sidebar-border pt-2">
+      <% footer_items.each do |item| %>
+        <%= render "ui/sidebar_menu_item",
+          label: item[:label],
+          icon: item[:icon],
+          href: item[:href],
+          active: item[:active] || false,
+          method: item[:method] %>
+      <% end %>
+
+      <% if user_name && user_email %>
+        <li>
+          <%= render "ui/dropdown_menu", align: "start", side: "top", class: "relative w-full" do %>
+            <button data-type="sidebar-user-button" data-dropdown-trigger
+                    aria-haspopup="menu" aria-expanded="false">
+              <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted">
+                <%= lucide_icon("user", class: "size-4") %>
+              </span>
+              <div class="grid flex-1 text-left text-sm leading-tight">
+                <span class="truncate font-medium"><%= user_name %></span>
+                <span class="truncate text-xs text-muted-foreground"><%= user_email %></span>
+              </div>
+              <%= lucide_icon("chevrons-up-down", class: "ml-auto size-4") %>
+            </button>
+
+            <div data-slot="dropdown-menu-content" role="menu" aria-orientation="vertical" data-state="closed">
+              <a href="<%= edit_profile_url %>" role="menuitem" data-slot="dropdown-menu-item" data-variant="default">
+                <%= lucide_icon("user-pen") %><span>Edit my profile</span>
+              </a>
+              <%= button_to logout_url, method: logout_method, form_class: "contents",
+                    role: "menuitem", data: { slot: "dropdown-menu-item", variant: "destructive" } do %>
+                <%= lucide_icon("log-out") %><span>Logout</span>
+              <% end %>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</aside>
+
+<div data-slot="sidebar-backdrop" data-controller="sidebar" data-action="click->sidebar#closeMobile" data-visible="false"></div>

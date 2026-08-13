@@ -1,0 +1,22 @@
+<div class="flex gap-16 p-16 items-center">
+  <% %w[bottom top].each do |side| %>
+    <div>
+      <p class="mb-2 text-xs text-muted-foreground">side: <%= side %></p>
+      <%= render "ui/dropdown_menu", side: side, align: "end" do %>
+        <button type="button" data-dropdown-trigger aria-haspopup="menu" aria-expanded="false"
+                variant="outline" size="sm">
+          <%= lucide_icon("ellipsis-vertical") %>
+        </button>
+
+        <div data-slot="dropdown-menu-content" role="menu" aria-orientation="vertical" data-state="closed">
+          <div role="menuitem" data-slot="dropdown-menu-item">
+            <%= lucide_icon("pen") %><span>Edit</span>
+          </div>
+          <div role="menuitem" data-slot="dropdown-menu-item">
+            <%= lucide_icon("copy") %><span>Duplicate</span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

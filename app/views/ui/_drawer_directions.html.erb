@@ -1,0 +1,15 @@
+<div class="flex flex-wrap gap-3">
+  <% %w[right left top bottom].each do |direction| %>
+    <button type="button" variant="outline" size="md" data-drawer-trigger="drawer-<%= direction %>">
+      Open <%= direction %>
+    </button>
+
+    <%= render "ui/drawer", id: "drawer-#{direction}", title: "Direction: #{direction}", direction: direction do %>
+      <div class="p-4 pt-0">
+        <p class="text-sm text-muted-foreground">
+          Drawer sliding in from <strong><%= direction %></strong>. Click outside or press Esc to close.
+        </p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

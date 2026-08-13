@@ -1,0 +1,20 @@
+<%# locals: (headers:, rows:, columns: 3, label: nil) %>
+<div class="text-sm text-muted-foreground">
+  <% if label %>
+    <div class="text-muted-foreground mb-2 flex items-center gap-2"><%= label %></div>
+  <% end %>
+  <div data-type="data-table">
+    <div data-slot="header" style="grid-template-columns: repeat(<%= columns %>, minmax(0, 1fr));">
+      <% headers.each do |header| %>
+        <span><%= header %></span>
+      <% end %>
+    </div>
+    <% rows.each do |row| %>
+      <div data-slot="body" style="grid-template-columns: repeat(<%= columns %>, minmax(0, 1fr));">
+        <% row.each do |cell| %>
+          <span><%= cell %></span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<style>
+  @media (min-width: 1024px) {
+    [data-type="sidebar-mobile-trigger"] { display: none; }
+  }
+</style>
+<div data-type="sidebar-layout" style="min-height: 100svh; position: relative;">
+  <%= render "ui/sidebar",
+    active_controller: "locations_dashboard",
+    items: [
+      { label: "Dashboard", icon: "house", href: "#", controller: "locations_dashboard" },
+      { label: "Alerts", icon: "triangle-alert", href: "#", controller: "alerts" },
+      { label: "Notes", icon: "notebook-pen", href: "#", controller: "notes" },
+      { label: "Map", icon: "earth", href: "#", controller: "maps" },
+      { label: "Regional Data", icon: "circle-dollar-sign", href: "#", controller: "regional_data" },
+      { label: "Reports", icon: "file-text", href: "#", controller: "reports" },
+      { label: "Score Benchmark", icon: "chart-column", href: "#", controller: "benchmarking" },
+      { label: "Agronomical Advisory", icon: "sheet", href: "#", controller: "agronomical_advisory" },
+      { label: "Irrigation Planner", icon: "droplets", href: "#", controller: "irrigation" },
+      { label: "Portfolio", icon: "briefcase-business", href: "#", controller: "portfolio" },
+      { label: "Backoffice", icon: "building", href: "#", controller: "backoffice" }
+    ],
+    footer_items: [
+      { label: "Terms and conditions", icon: "scroll-text", href: "#" },
+      { label: "FAQ", icon: "message-circle-question", href: "#" }
+    ],
+    user_name: "ivan",
+    user_email: "ivan@design-system-gem.test" %>
+
+  <main>
+    <div style="padding: 1rem;">
+      <div style="display: flex; align-items: center; gap: 0.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--color-border); margin-bottom: 1rem;">
+        <button data-type="sidebar-mobile-trigger" data-controller="sidebar" data-action="click->sidebar#openMobile" aria-label="Open menu">
+          <%= lucide_icon("menu", class: "size-5") %>
+        </button>
+        <span style="font-size: 1.125rem; font-weight: 600;">Dashboard</span>
+      </div>
+      <p style="color: var(--color-muted-foreground); font-size: 0.875rem;">
+        Resize the preview to mobile width (&lt; 768 px) to see the mobile navigation drawer.
+      </p>
+    </div>
+  </main>
+</div>

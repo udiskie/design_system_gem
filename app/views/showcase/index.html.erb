@@ -1,0 +1,533 @@
+<%
+  sections = [
+    { id: "typography",     label: "Typography" },
+    { id: "buttons",        label: "Buttons" },
+    { id: "badges",         label: "Badges" },
+    { id: "form-controls",  label: "Form Controls" },
+    { id: "cards-fields",   label: "Cards & Fields" },
+    { id: "interactive",    label: "Interactive" },
+    { id: "icon-buttons",   label: "Icon Buttons" },
+    { id: "data-table",     label: "Data Table" },
+  ]
+%>
+
+<style>
+  .ds-page        { min-height: 100vh; background: var(--color-background); }
+  .ds-header      { background: var(--color-primary); color: white; padding: 2.5rem 3rem; }
+  .ds-header h1   { color: white; font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem; }
+  .ds-header p    { color: rgba(255,255,255,0.75); margin: 0; font-size: 0.9375rem; }
+  .ds-meta        { display: flex; gap: 0.75rem; margin-top: 1.25rem; flex-wrap: wrap; }
+  .ds-meta span   { background: rgba(255,255,255,0.15); color: white; border-radius: 9999px; padding: 0.25rem 0.75rem; font-size: 0.8rem; font-weight: 500; }
+  .ds-body        { display: flex; max-width: 1200px; margin: 0 auto; }
+  .ds-nav         { width: 200px; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 2rem 1.25rem; border-right: 1px solid var(--color-border); }
+  .ds-nav-title   { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-muted-foreground); margin-bottom: 0.75rem; }
+  .ds-nav a       { display: block; padding: 0.375rem 0.625rem; border-radius: 0.375rem; font-size: 0.85rem; color: var(--color-foreground); text-decoration: none; margin-bottom: 0.125rem; transition: background 0.15s; }
+  .ds-nav a:hover { background: var(--color-muted); }
+  .ds-main        { flex: 1; padding: 2.5rem 3rem; min-width: 0; }
+  .ds-section     { margin-bottom: 4rem; scroll-margin-top: 1.5rem; }
+  .ds-section-hd  { margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--color-border); }
+  .ds-section-hd h2 { font-size: 1.25rem; font-weight: 700; color: var(--color-foreground); margin: 0 0 0.25rem; }
+  .ds-section-hd p  { font-size: 0.85rem; color: var(--color-muted-foreground); margin: 0; }
+  .ds-subsection  { margin-bottom: 2rem; }
+  .ds-sub-label   { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-muted-foreground); margin-bottom: 0.75rem; }
+  .ds-demo        { background: var(--color-card); border: 1px solid var(--color-border); border-radius: 0.75rem 0.75rem 0 0; padding: 1.5rem; }
+  .ds-demo + .ds-demo { margin-top: 1rem; }
+  .ds-row         { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end; }
+  .ds-col         { display: flex; flex-direction: column; gap: 0.5rem; }
+  .ds-code        { border: 1px solid var(--color-border); border-top: none; border-radius: 0 0 0.75rem 0.75rem; background: #f8f8f8; overflow-x: auto; }
+  .ds-code pre    { margin: 0; padding: 1rem 1.25rem; font-family: ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace; font-size: 0.78rem; line-height: 1.65; color: #1a1a1a; white-space: pre; }
+</style>
+
+<div class="ds-page">
+
+  <%# ── Header ─────────────────────────────────────────────────────────── %>
+  <header class="ds-header">
+    <h1>Design System Gem</h1>
+    <p>A production-ready component library for agricultural SaaS platforms.</p>
+    <div class="ds-meta">
+      <span>Ruby gem · Rails ERB</span>
+      <span>Tailwind CSS v4</span>
+      <span>Manrope typeface</span>
+      <span>Zero JS framework</span>
+    </div>
+  </header>
+
+  <div class="ds-body">
+
+    <%# ── Sidebar nav ────────────────────────────────────────────────────── %>
+    <nav class="ds-nav">
+      <div class="ds-nav-title">Components</div>
+      <% sections.each do |s| %>
+        <a href="#<%= s[:id] %>"><%= s[:label] %></a>
+      <% end %>
+    </nav>
+
+    <%# ── Main content ───────────────────────────────────────────────────── %>
+    <main class="ds-main">
+
+      <%# ── 1. Typography ─────────────────────────────────────────────── %>
+      <section id="typography" class="ds-section">
+        <div class="ds-section-hd">
+          <h2>Typography</h2>
+          <p>Heading scale (h1–h6), body text, muted variant, and link styles.</p>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Headings</div>
+          <div class="ds-demo">
+            <%= render "ui/headings_grid" %>
+          </div>
+          <div class="ds-code"><pre>&lt;h1&gt;Heading 1&lt;/h1&gt;
+&lt;h2&gt;Heading 2&lt;/h2&gt;
+&lt;h3&gt;Heading 3&lt;/h3&gt;
+&lt;h4&gt;Heading 4&lt;/h4&gt;
+&lt;h5&gt;Heading 5&lt;/h5&gt;
+&lt;h6&gt;Heading 6&lt;/h6&gt;</pre></div>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Paragraph</div>
+          <div class="ds-demo ds-col">
+            <%= render "ui/paragraph", text: "This is regular body text used throughout the interface." %>
+            <%= render "ui/paragraph", text: "This is muted text for secondary information and captions.", variant: "muted" %>
+          </div>
+          <div class="ds-code"><pre>&lt;p&gt;Regular body text.&lt;/p&gt;
+&lt;p variant="muted"&gt;Muted secondary text.&lt;/p&gt;</pre></div>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Links</div>
+          <div class="ds-demo ds-row">
+            <%= render "ui/link", text: "Default link",   href: "#" %>
+            <%= render "ui/link", text: "Danger link",    href: "#", variant: "destructive" %>
+            <%= render "ui/link", text: "Underline link", href: "#", variant: "underline" %>
+          </div>
+          <div class="ds-code"><pre>&lt;a href="/path"&gt;Default link&lt;/a&gt;
+&lt;a href="/path" variant="destructive"&gt;Danger link&lt;/a&gt;
+&lt;a href="/path" variant="underline"&gt;Underline link&lt;/a&gt;</pre></div>
+        </div>
+      </section>
+
+      <%# ── 2. Buttons ────────────────────────────────────────────────── %>
+      <section id="buttons" class="ds-section">
+        <div class="ds-section-hd">
+          <h2>Buttons</h2>
+          <p>Four variants × three sizes, with disabled and icon states.</p>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-demo">
+            <%= render "ui/button_grid" %>
+          </div>
+          <div class="ds-code"><pre>&lt;button variant="primary"     size="md"&gt;Primary&lt;/button&gt;
+&lt;button variant="secondary"   size="md"&gt;Secondary&lt;/button&gt;
+&lt;button variant="outline"     size="md"&gt;Outline&lt;/button&gt;
+&lt;button variant="destructive" size="md"&gt;Destructive&lt;/button&gt;
+&lt;button variant="primary"     size="md" disabled&gt;Disabled&lt;/button&gt;
+
+&lt;!-- size: "sm" | "md" | "lg" --&gt;</pre></div>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">With icon</div>
+          <div class="ds-demo ds-row">
+            <% %w[sm md lg].each do |sz| %>
+              <%= render "ui/button", text: "Export", variant: "primary", size: sz,
+                    icon: lucide_icon("arrow-up-right", class: "h-4 w-4") %>
+            <% end %>
+          </div>
+          <div class="ds-code"><pre>&lt;button variant="primary" size="md"&gt;
+  &lt;svg ...&gt;&lt;/svg&gt;
+  Export
+&lt;/button&gt;</pre></div>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Submit button (forms)</div>
+          <div class="ds-demo">
+            <button variant="primary" size="md" type="submit">Submit form</button>
+          </div>
+          <div class="ds-code"><pre>&lt;!-- ui/button cannot set type="submit" — use the raw tag --&gt;
+&lt;button variant="primary" size="md" type="submit"&gt;Submit form&lt;/button&gt;</pre></div>
+        </div>
+      </section>
+
+      <%# ── 3. Badges ─────────────────────────────────────────────────── %>
+      <section id="badges" class="ds-section">
+        <div class="ds-section-hd">
+          <h2>Badges</h2>
+          <p>Status indicators across all variants and three sizes.</p>
+        </div>
+        <div class="ds-demo">
+          <%= render "ui/badge_grid" %>
+        </div>
+        <div class="ds-code"><pre>&lt;div data-type="badge" variant="success"        size="md"&gt;&lt;span&gt;Fruit development&lt;/span&gt;&lt;/div&gt;
+&lt;div data-type="badge" variant="warning-high"   size="md"&gt;&lt;span&gt;High risk&lt;/span&gt;&lt;/div&gt;
+&lt;div data-type="badge" variant="warning-medium" size="sm"&gt;&lt;span&gt;Medium risk&lt;/span&gt;&lt;/div&gt;
+&lt;div data-type="badge" variant="warning-low"    size="sm"&gt;&lt;span&gt;Low risk&lt;/span&gt;&lt;/div&gt;
+&lt;div data-type="badge" variant="ready"          size="sm"&gt;&lt;span&gt;Ready&lt;/span&gt;&lt;/div&gt;
+&lt;div data-type="badge" variant="score"          size="md"&gt;&lt;span&gt;Score: 68&lt;/span&gt;&lt;/div&gt;
+&lt;div data-type="badge" variant="neutral"        size="md"&gt;&lt;span&gt;Neutral&lt;/span&gt;&lt;/div&gt;
+&lt;div data-type="badge" variant="outline"        size="md"&gt;&lt;span&gt;Outline&lt;/span&gt;&lt;/div&gt;
+&lt;div data-type="badge" variant="disabled"       size="md"&gt;&lt;span&gt;Disabled&lt;/span&gt;&lt;/div&gt;
+
+&lt;!-- size: "sm" | "md" | "lg" --&gt;</pre></div>
+      </section>
+
+      <%# ── 4. Form Controls ───────────────────────────────────────────── %>
+      <section id="form-controls" class="ds-section">
+        <div class="ds-section-hd">
+          <h2>Form Controls</h2>
+          <p>Input, select, checkbox, and radio — all sizes and interaction states.</p>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Text Input</div>
+          <div class="ds-demo">
+            <%= render "ui/input_grid" %>
+          </div>
+          <div class="ds-code"><pre>&lt;input type="text" data-size="md" placeholder="Default" /&gt;
+&lt;input type="text" data-size="md" placeholder="Invalid"  aria-invalid="true" /&gt;
+&lt;input type="text" data-size="md" placeholder="Disabled" disabled /&gt;
+&lt;input type="text" data-size="md" name="field_name" value="prefilled" /&gt;
+
+&lt;!-- data-size: "sm" | "md" | "lg" --&gt;</pre></div>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Select</div>
+          <div class="ds-demo">
+            <%= render "ui/select_grid" %>
+          </div>
+          <div class="ds-code"><pre>&lt;select data-size="md"&gt;
+  &lt;option value="Option 1"&gt;Option 1&lt;/option&gt;
+  &lt;option value="Option 2"&gt;Option 2&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;select data-size="md" aria-invalid="true"&gt;...&lt;/select&gt;
+&lt;select data-size="md" disabled&gt;...&lt;/select&gt;
+
+&lt;!-- data-size: "sm" | "md" | "lg" --&gt;</pre></div>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Checkbox</div>
+          <div class="ds-demo ds-row" style="gap: 1.5rem;">
+            <%= render "ui/checkbox", label: "Unchecked", size: "md" %>
+            <%= render "ui/checkbox", label: "Checked",   size: "md", checked: true %>
+            <%= render "ui/checkbox", label: "Disabled",  size: "md", disabled: true %>
+          </div>
+          <div class="ds-code"><pre>&lt;label class="flex items-center gap-2"&gt;
+  &lt;input type="checkbox" size="md" /&gt;
+  &lt;span&gt;Unchecked&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;label class="flex items-center gap-2"&gt;
+  &lt;input type="checkbox" size="md" checked /&gt;
+  &lt;span&gt;Checked&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;label class="flex items-center gap-2"&gt;
+  &lt;input type="checkbox" size="md" disabled /&gt;
+  &lt;span&gt;Disabled&lt;/span&gt;
+&lt;/label&gt;</pre></div>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Radio Group</div>
+          <div class="ds-demo">
+            <%= render "ui/radio_group" %>
+          </div>
+          <div class="ds-code"><pre>&lt;label class="flex items-center gap-2"&gt;
+  &lt;input type="radio" name="my_group" size="md" checked /&gt;
+  &lt;span&gt;Option A&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;label class="flex items-center gap-2"&gt;
+  &lt;input type="radio" name="my_group" size="md" /&gt;
+  &lt;span&gt;Option B&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;label class="flex items-center gap-2"&gt;
+  &lt;input type="radio" name="my_group" size="md" disabled /&gt;
+  &lt;span&gt;Disabled&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- All radios in a group share the same name attribute --&gt;</pre></div>
+        </div>
+      </section>
+
+      <%# ── 5. Cards & Fields ──────────────────────────────────────────── %>
+      <section id="cards-fields" class="ds-section">
+        <div class="ds-section-hd">
+          <h2>Cards & Fields</h2>
+          <p>Container card and label–value field pairs for structured data display.</p>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Card</div>
+          <div class="ds-demo">
+            <%= render "ui/card" do %>
+              <%= render "ui/heading", text: "Almond Field — Portugal BM 1", level: 3 %>
+              <%= render "ui/paragraph", text: "Monitored farmland in the Alentejo region.", variant: "muted" %>
+              <div style="margin-top: 1rem;">
+                <%= render "ui/button", text: "View details", variant: "outline", size: "sm" %>
+              </div>
+            <% end %>
+          </div>
+          <div class="ds-code"><pre>&lt;div data-type="card"&gt;
+  &lt;h3&gt;Almond Field — Portugal BM 1&lt;/h3&gt;
+  &lt;p variant="muted"&gt;Monitored farmland in the Alentejo region.&lt;/p&gt;
+  &lt;button variant="outline" size="sm"&gt;View details&lt;/button&gt;
+&lt;/div&gt;</pre></div>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Field (label + value pairs)</div>
+          <div class="ds-demo">
+            <%= render "ui/field_grid" %>
+          </div>
+          <div class="ds-code"><pre>&lt;div data-type="field"&gt;
+  &lt;div data-slot="label"&gt;Crop&lt;/div&gt;
+  &lt;div data-slot="value"&gt;Almond&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Block value — pass any element as the value --&gt;
+&lt;div data-type="field"&gt;
+  &lt;div data-slot="label"&gt;Stage&lt;/div&gt;
+  &lt;div data-slot="value"&gt;
+    &lt;div data-type="badge" variant="success" size="sm"&gt;
+      &lt;span&gt;Fruit development&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+        </div>
+      </section>
+
+      <%# ── 6. Interactive ─────────────────────────────────────────────── %>
+      <section id="interactive" class="ds-section">
+        <div class="ds-section-hd">
+          <h2>Interactive Components</h2>
+          <p>Dialog, drawer, dropdown menu, date picker, and toast — all fully interactive.</p>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Dialog</div>
+          <div class="ds-demo">
+            <%= render "ui/dialog_default" %>
+          </div>
+          <div class="ds-code"><pre>&lt;!-- Trigger --&gt;
+&lt;button variant="primary" size="md" data-dialog-trigger="my-dialog"&gt;
+  Open dialog
+&lt;/button&gt;
+
+&lt;!-- Dialog root --&gt;
+&lt;div data-dialog-root="my-dialog" data-state="closed"&gt;
+  &lt;div data-slot="dialog-overlay" data-state="closed" data-dialog-close&gt;&lt;/div&gt;
+
+  &lt;div data-slot="dialog-content" data-state="closed" size="lg" role="dialog"&gt;
+    &lt;button type="button" data-type="dialog-close" data-dialog-close&gt;✕&lt;/button&gt;
+
+    &lt;header data-type="dialog-header"&gt;
+      &lt;h2 data-type="dialog-title"&gt;Configure irrigation&lt;/h2&gt;
+      &lt;p data-type="dialog-description"&gt;Adjust zone settings.&lt;/p&gt;
+    &lt;/header&gt;
+
+    &lt;div data-type="dialog-body"&gt;...&lt;/div&gt;
+
+    &lt;div data-type="dialog-footer"&gt;
+      &lt;button type="button" variant="outline" size="lg" data-dialog-close&gt;Cancel&lt;/button&gt;
+      &lt;button type="button" variant="primary" size="lg" data-dialog-close&gt;Save&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- size: "sm" | "md" | "lg" --&gt;</pre></div>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Dialog — sizes</div>
+          <div class="ds-demo">
+            <%= render "ui/dialog_grid" %>
+          </div>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Drawer</div>
+          <div class="ds-demo">
+            <%= render "ui/drawer_default" %>
+          </div>
+          <div class="ds-code"><pre>&lt;!-- Trigger --&gt;
+&lt;button type="button" variant="primary" size="md" data-drawer-trigger="my-drawer"&gt;
+  Open drawer
+&lt;/button&gt;
+
+&lt;!-- Drawer root --&gt;
+&lt;div data-component="drawer" data-drawer-id="my-drawer"&gt;
+  &lt;div data-slot="drawer-content" data-state="closed"
+       data-vaul-drawer-direction="right" role="dialog"&gt;
+
+    &lt;div class="flex justify-between items-end p-4"&gt;
+      &lt;div&gt;
+        &lt;div class="text-gray-500 text-sm"&gt;Almonds Portugal BM 1&lt;/div&gt;
+        &lt;div class="text-gray-900 text-xl font-semibold"&gt;Scoring details&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div data-type="badge" variant="score" size="sm"&gt;&lt;span&gt;Score: 68&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- body content --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- data-vaul-drawer-direction: "right" | "left" | "top" | "bottom" --&gt;</pre></div>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Drawer — directions</div>
+          <div class="ds-demo">
+            <%= render "ui/drawer_directions" %>
+          </div>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Dropdown menu</div>
+          <div class="ds-demo ds-row">
+            <%= render "ui/dropdown_menu_default" %>
+            <%= render "ui/dropdown_menu_destructive" %>
+          </div>
+          <div class="ds-code"><pre>&lt;div data-component="dropdown" data-align="end" data-side="bottom" class="relative inline-block"&gt;
+
+  &lt;!-- Trigger --&gt;
+  &lt;button type="button" data-dropdown-trigger
+          aria-haspopup="menu" aria-expanded="false"
+          variant="outline" size="sm"&gt;⋮&lt;/button&gt;
+
+  &lt;!-- Menu --&gt;
+  &lt;div data-slot="dropdown-menu-content" role="menu" data-state="closed"&gt;
+    &lt;div role="menuitem" data-slot="dropdown-menu-item" data-variant="default"&gt;
+      &lt;svg .../&gt;&lt;span&gt;Edit location&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div data-slot="dropdown-menu-separator"&gt;&lt;/div&gt;
+    &lt;div role="menuitem" data-slot="dropdown-menu-item" data-variant="destructive"&gt;
+      &lt;svg .../&gt;&lt;span&gt;Delete&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- data-align: "start" | "end"     data-side: "top" | "bottom" --&gt;
+&lt;!-- data-variant: "default" | "destructive" --&gt;</pre></div>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Date picker</div>
+          <div class="ds-demo">
+            <%= render "ui/date_picker", name: "harvest_date", placeholder: "Pick harvest date" %>
+          </div>
+          <div class="ds-code"><pre>&lt;div data-component="date-picker" data-date=""&gt;
+  &lt;button type="button" data-slot="date-picker-trigger" data-empty&gt;
+    &lt;svg .../&gt;
+    &lt;span data-slot="date-picker-label"&gt;Pick harvest date&lt;/span&gt;
+  &lt;/button&gt;
+
+  &lt;input type="hidden" name="harvest_date" data-slot="date-picker-input" /&gt;
+
+  &lt;div data-slot="date-picker-content" data-state="closed" role="dialog"&gt;
+    &lt;div data-slot="date-picker-nav"&gt;
+      &lt;button data-slot="date-picker-prev"&gt;←&lt;/button&gt;
+      &lt;div data-slot="date-picker-heading"&gt;
+        &lt;select data-slot="date-picker-month-select"&gt;&lt;/select&gt;
+        &lt;select data-slot="date-picker-year-select"&gt;&lt;/select&gt;
+      &lt;/div&gt;
+      &lt;button data-slot="date-picker-next"&gt;→&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div data-slot="date-picker-weekdays"&gt;&lt;/div&gt;
+    &lt;div data-slot="date-picker-days"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+        </div>
+
+        <div class="ds-subsection">
+          <div class="ds-sub-label">Toast</div>
+          <div class="ds-demo ds-col" style="gap: 0.5rem;">
+            <%= render "ui/toast", text: "Saved successfully",       variant: "success",        size: "md" %>
+            <%= render "ui/toast", text: "Something went wrong",     variant: "warning-high",   size: "md" %>
+            <%= render "ui/toast", text: "Please review your input", variant: "warning-medium", size: "md" %>
+            <%= render "ui/toast", text: "Processing your request…", variant: "neutral",        size: "md" %>
+          </div>
+          <div class="ds-code"><pre>&lt;div data-type="toast" variant="success"        size="md"&gt;Saved successfully&lt;/div&gt;
+&lt;div data-type="toast" variant="warning-high"   size="md"&gt;Something went wrong&lt;/div&gt;
+&lt;div data-type="toast" variant="warning-medium" size="md"&gt;Please review your input&lt;/div&gt;
+&lt;div data-type="toast" variant="neutral"        size="md"&gt;Processing your request…&lt;/div&gt;
+
+&lt;!-- variant: "success" | "warning-high" | "warning-medium" | "neutral" --&gt;
+&lt;!-- size:    "sm" | "md" | "lg" --&gt;</pre></div>
+        </div>
+      </section>
+
+      <%# ── 7. Icon Buttons ────────────────────────────────────────────── %>
+      <section id="icon-buttons" class="ds-section">
+        <div class="ds-section-hd">
+          <h2>Icon Buttons</h2>
+          <p>Square and round icon-only buttons in three variants and three sizes.</p>
+        </div>
+        <div class="ds-demo">
+          <%= render "ui/icon_button_grid" %>
+        </div>
+        <div class="ds-code"><pre>&lt;button data-type="icon-button" variant="outline" size="md" shape="square"&gt;
+  &lt;svg ...&gt;&lt;/svg&gt;
+&lt;/button&gt;
+
+&lt;button data-type="icon-button" variant="tinted" size="md" shape="round"&gt;
+  &lt;svg ...&gt;&lt;/svg&gt;
+&lt;/button&gt;
+
+&lt;button data-type="icon-button" variant="ghost" size="md" shape="square" disabled&gt;
+  &lt;svg ...&gt;&lt;/svg&gt;
+&lt;/button&gt;
+
+&lt;!-- variant: "outline" | "tinted" | "ghost" --&gt;
+&lt;!-- shape:   "square"  | "round"             --&gt;
+&lt;!-- size:    "sm" | "md" | "lg"              --&gt;</pre></div>
+      </section>
+
+      <%# ── 8. Data Table ──────────────────────────────────────────────── %>
+      <section id="data-table" class="ds-section">
+        <div class="ds-section-hd">
+          <h2>Data Table</h2>
+          <p>Grid-based data table used for structured tabular content.</p>
+        </div>
+        <div class="ds-demo">
+          <%= render "ui/data_table",
+                label:   "Monitored locations",
+                columns: 4,
+                headers: %w[Location Crop Score Stage],
+                rows: [
+                  ["Portugal BM 1",     "Almonds",    "68.59", "Fruit development"],
+                  ["Andalusia Olives",  "Olives",     "82.10", "Ripening"],
+                  ["Catalonia Hazels",  "Hazelnuts",  "54.30", "Flowering"],
+                  ["Valencia Citrus",   "Orange",     "91.00", "Ready"],
+                  ["Alentejo Vineyard", "Grapes",     "73.80", "Veraison"],
+                ] %>
+        </div>
+        <div class="ds-code"><pre>&lt;div data-type="data-table"&gt;
+  &lt;div data-slot="header" style="grid-template-columns: repeat(4, minmax(0, 1fr))"&gt;
+    &lt;span&gt;Location&lt;/span&gt;
+    &lt;span&gt;Crop&lt;/span&gt;
+    &lt;span&gt;Score&lt;/span&gt;
+    &lt;span&gt;Stage&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div data-slot="body" style="grid-template-columns: repeat(4, minmax(0, 1fr))"&gt;
+    &lt;span&gt;Portugal BM 1&lt;/span&gt;
+    &lt;span&gt;Almonds&lt;/span&gt;
+    &lt;span&gt;68.59&lt;/span&gt;
+    &lt;span&gt;Fruit development&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;!-- repeat data-slot="body" for each row --&gt;
+&lt;/div&gt;
+
+&lt;!-- columns must match the count of headers and cells per row --&gt;</pre></div>
+      </section>
+
+    </main>
+  </div>
+</div>

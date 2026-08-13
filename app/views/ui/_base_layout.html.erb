@@ -1,0 +1,29 @@
+<%# locals: (title:, icon: "house", active_controller: nil, sidebar_items: [], sidebar_footer_items: [], user_name: nil, user_email: nil, sidebar_logo: true, edit_profile_url: "#", logout_url: "#", logout_method: :delete) %>
+<div data-type="sidebar-layout">
+  <%= render "ui/sidebar",
+    items: sidebar_items,
+    footer_items: sidebar_footer_items,
+    user_name: user_name,
+    user_email: user_email,
+    active_controller: active_controller,
+    logo: sidebar_logo,
+    edit_profile_url: edit_profile_url,
+    logout_url: logout_url,
+    logout_method: logout_method %>
+
+  <main>
+    <div class="p-4">
+      <div class="flex items-center gap-2">
+        <button class="lg:hidden" data-type="sidebar-mobile-trigger" data-controller="sidebar" data-action="click->sidebar#openMobile" aria-label="Open menu">
+          <%= lucide_icon("menu", class: "size-5") %>
+        </button>
+        <%= lucide_icon(icon, class: "size-6") %>
+        <h1 class="text-base md:text-2xl font-semibold"><%= title %></h1>
+      </div>
+
+      <% if block_given? %>
+        <div class="mt-6"><%= yield %></div>
+      <% end %>
+    </div>
+  </main>
+</div>

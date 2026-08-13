@@ -1,0 +1,35 @@
+<button type="button" variant="primary" size="md" data-drawer-trigger="scoring-drawer">
+  Open drawer
+</button>
+
+<%= render "ui/drawer",
+      id: "scoring-drawer",
+      title: "Almonds Portugal BM 1",
+      subtitle: "Scoring details",
+      badge: { text: "Score: 68.59", variant: "score", size: "sm" },
+      direction: "right" do %>
+  <div class="p-4 pt-0 flex flex-col gap-4">
+
+    <div>
+      <h3 class="font-semibold text-lg text-gray-800 mb-2">Water</h3>
+      <ul class="space-y-1 border-l border-gray-200 pl-4">
+        <li class="flex justify-between text-sm text-gray-700"><span>Historical water demand (ETr)</span><span class="font-semibold">60.38</span></li>
+        <li class="flex justify-between text-sm text-gray-700"><span>Water balance dynamics</span><span class="font-semibold">100</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="font-semibold text-lg text-gray-800 mb-2">Production</h3>
+      <ul class="space-y-1 border-l border-gray-200 pl-4">
+        <li class="flex justify-between text-sm text-gray-700"><span>Soil suitability</span><span class="font-semibold">40</span></li>
+        <li class="flex justify-between text-sm text-gray-700"><span>Anomaly index</span><span class="font-semibold">100</span></li>
+        <li class="flex justify-between text-sm text-gray-700"><span>Climate alerts</span><span class="font-semibold">67.87</span></li>
+        <li class="flex justify-between text-sm text-gray-700"><span>Climate change</span><span class="font-semibold">55.57</span></li>
+        <li class="flex justify-between text-sm text-gray-700"><span>Land and soil use</span><span class="font-semibold">78.57</span></li>
+        <li class="flex justify-between text-sm text-gray-700"><span>Vegetation uniformity</span><span class="font-semibold">50</span></li>
+      </ul>
+    </div>
+
+    <button type="button" variant="outline" size="md">Download CSV</button>
+  </div>
+<% end %>

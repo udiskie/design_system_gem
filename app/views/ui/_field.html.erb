@@ -1,0 +1,11 @@
+<%# locals: (label:, value: nil) %>
+<div data-type="field">
+  <div data-slot="label"><%= label %></div>
+  <div data-slot="value">
+    <% if value %>
+      <%= value %>
+    <% else %>
+      <%= yield %>
+    <% end %>
+  </div>
+</div>

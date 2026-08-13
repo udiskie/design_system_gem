@@ -1,0 +1,52 @@
+<%# locals: (align: "end", side: "bottom", class: "relative inline-block") %>
+<%# side: "bottom" | "top" — open below or above the trigger %>
+<%# align: "start" | "center" | "end" — horizontal anchor (left / center / right of trigger) %>
+<%# class: override the wrapper classes, e.g. "relative w-full" when the trigger fills its container %>
+<div data-component="dropdown" data-align="<%= align %>" data-side="<%= side %>" class="<%= binding.local_variable_get(:class) %>">
+  <%= yield %>
+</div>
+
+<%= javascript_tag nonce: true do %>
+  (function () {
+    if (window.__dropdownMenuSetup) return;
+    window.__dropdownMenuSetup = true;
+
+    function closeAll(except) {
+      document.querySelectorAll('[data-slot="dropdown-menu-content"][data-state="open"]').forEach(function (m) {
+        if (m !== except) m.dataset.state = "closed";
+      });
+      document.querySelectorAll('[data-dropdown-trigger][aria-expanded="true"]').forEach(function (t) {
+        if (!except || !t.closest('[data-component="dropdown"]').contains(except)) {
+          t.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
+
+    document.addEventListener("click", function (e) {
+      var trigger = e.target.closest("[data-dropdown-trigger]");
+      if (trigger) {
+        var wrapper = trigger.closest('[data-component="dropdown"]');
+        var menu = wrapper && wrapper.querySelector('[data-slot="dropdown-menu-content"]');
+        if (!menu) return;
+        var isOpen = menu.dataset.state === "open";
+        closeAll(isOpen ? null : menu);
+        menu.dataset.state = isOpen ? "closed" : "open";
+        trigger.setAttribute("aria-expanded", String(!isOpen));
+        return;
+      }
+
+      var item = e.target.closest('[data-slot="dropdown-menu-item"]');
+      if (item && !item.hasAttribute("data-disabled")) {
+        var m = item.closest('[data-slot="dropdown-menu-content"]');
+        if (m) m.dataset.state = "closed";
+        return;
+      }
+
+      if (!e.target.closest('[data-component="dropdown"]')) closeAll(null);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeAll(null);
+    });
+  })();
+<% end %>

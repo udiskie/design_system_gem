@@ -1,0 +1,17 @@
+<div>
+  <%= render "ui/heading", text: "Dashboard", level: 1 %>
+  <%= render "ui/heading", text: "Overview", level: 2 %>
+  <%= render "ui/heading", text: "Section", level: 3 %>
+  <%= render "ui/heading", text: "Subsection", level: 4 %>
+  <%= render "ui/heading", text: "Label", level: 5 %>
+  <%= render "ui/heading", text: "Caption", level: 6 %>
+
+  <%= render "ui/paragraph", text: "This is regular body text." %>
+  <%= render "ui/paragraph", text: "This is secondary information.", variant: "muted" %>
+
+  <div class="flex gap-4 mt-4">
+    <%= render "ui/link", text: "Default link", href: "#" %>
+    <%= render "ui/link", text: "Danger link", href: "#", variant: "destructive" %>
+    <%= render "ui/link", text: "Underline link", href: "#", variant: "underline" %>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<%# locals: (label:, icon:, href: "#", active: false, method: nil) %>
+<%# method: pass an HTTP verb (e.g. :delete) to render a button_to instead of a %>
+<%#         plain link -- for actions like sign-out that aren't GET navigations. %>
+<li>
+  <% if method %>
+    <%= button_to href, method: method, form_class: "contents", data: { type: "sidebar-menu-button", active: active } do %>
+      <%= lucide_icon(icon, class: "size-4") %>
+      <span><%= label %></span>
+    <% end %>
+  <% else %>
+    <a href="<%= href %>" data-active="<%= active %>" data-type="sidebar-menu-button">
+      <%= lucide_icon(icon, class: "size-4") %>
+      <span><%= label %></span>
+    </a>
+  <% end %>
+</li>

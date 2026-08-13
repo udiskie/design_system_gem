@@ -1,0 +1,74 @@
+<%# locals: (title:, subtitle: nil, badge: nil, direction: "right", id: nil) %>
+<%# title:     required — rendered as <div class="text-gray-900 truncate text-xl font-semibold"> %>
+<%# subtitle:  optional — rendered as <div class="text-gray-500 truncate text-sm"> above the title %>
+<%# badge:     optional { text:, variant:, size: } — rendered via ui/badge next to the title %>
+<%# direction: "top" | "bottom" | "right" | "left" — which edge the drawer slides from %>
+<% id ||= "drawer-#{SecureRandom.hex(4)}" %>
+<div data-component="drawer" data-drawer-id="<%= id %>">
+  <div
+    role="dialog"
+    aria-labelledby="<%= id %>-title"
+    data-slot="drawer-content"
+    data-state="closed"
+    data-vaul-drawer-direction="<%= direction %>"
+    class="group/drawer-content"
+    tabindex="-1"
+  >
+    <h2 id="<%= id %>-title" data-slot="drawer-title" class="sr-only"><%= title %></h2>
+
+    <%# drag handle — auto-shown only when direction=bottom %>
+    <div class="bg-muted mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block"></div>
+
+    <div class="flex justify-between items-end p-4">
+      <div class="flex gap-1 flex-1 min-w-0 flex-col">
+        <% if subtitle %>
+          <div class="text-gray-500 truncate text-sm"><%= subtitle %></div>
+        <% end %>
+        <div class="text-gray-900 truncate text-xl font-semibold"><%= title %></div>
+      </div>
+      <% if badge %>
+        <%= render "ui/badge",
+              text: badge[:text],
+              variant: badge[:variant] || "score",
+              size: badge[:size] || "sm" %>
+      <% end %>
+    </div>
+
+    <%= yield %>
+  </div>
+</div>
+
+<%= javascript_tag nonce: true do %>
+  (function () {
+    if (window.__drawerSetup) return;
+    window.__drawerSetup = true;
+
+    function setState(comp, state) {
+      comp.querySelectorAll("[data-state]").forEach(function (el) { el.dataset.state = state; });
+    }
+
+    function closeAll() {
+      document.querySelectorAll('[data-component="drawer"]').forEach(function (c) { setState(c, "closed"); });
+    }
+
+    document.addEventListener("click", function (e) {
+      var trigger = e.target.closest("[data-drawer-trigger]");
+      if (trigger) {
+        var comp = document.querySelector('[data-drawer-id="' + trigger.dataset.drawerTrigger + '"]');
+        if (comp) { closeAll(); setState(comp, "open"); }
+        return;
+      }
+      var closer = e.target.closest("[data-drawer-close]");
+      if (closer) {
+        var c = closer.closest('[data-component="drawer"]');
+        if (c) setState(c, "closed");
+        return;
+      }
+      if (!e.target.closest('[data-slot="drawer-content"]')) closeAll();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeAll();
+    });
+  })();
+<% end %>

@@ -1,0 +1,7 @@
+<div class="flex flex-wrap gap-4 items-end">
+  <% %w[warning-high warning-medium warning-low success ready outline neutral score disabled].each do |variant| %>
+    <% %w[sm md lg].each do |size| %>
+      <%= render "ui/badge", text: "#{variant} #{size}", variant: variant, size: size %>
+    <% end %>
+  <% end %>
+</div>

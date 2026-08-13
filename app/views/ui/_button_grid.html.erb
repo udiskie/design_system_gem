@@ -1,0 +1,10 @@
+<div class="flex flex-wrap gap-4 items-end">
+  <% %w[primary secondary outline destructive].each do |variant| %>
+    <% %w[sm md lg].each do |size| %>
+      <%= render "ui/button", text: variant.capitalize, variant: variant, size: size %>
+    <% end %>
+  <% end %>
+  <% %w[sm md lg].each do |size| %>
+    <%= render "ui/button", text: "Disabled", variant: "primary", size: size, disabled: true %>
+  <% end %>
+</div>

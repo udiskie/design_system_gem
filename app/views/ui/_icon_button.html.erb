@@ -1,0 +1,10 @@
+<%# locals: (icon:, variant: "outline", size: "sm", shape: "square", disabled: false, href: nil) %>
+<% if href %>
+<a href="<%= href %>" class="shrink-0">
+<% end %>
+  <button data-type="icon-button" variant="<%= variant %>" size="<%= size %>" shape="<%= shape %>" <%= "disabled" if disabled %>>
+    <%= icon %>
+  </button>
+<% if href %>
+</a>
+<% end %>

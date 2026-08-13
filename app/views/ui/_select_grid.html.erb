@@ -1,0 +1,12 @@
+<div class="grid grid-cols-3 gap-4 items-end">
+  <% options = %w[Option\ 1 Option\ 2 Option\ 3] %>
+  <% %w[sm md lg].each do |size| %>
+    <%= render "ui/select", options: options, size: size %>
+  <% end %>
+  <% %w[sm md lg].each do |size| %>
+    <%= render "ui/select", options: options, size: size, invalid: true %>
+  <% end %>
+  <% %w[sm md lg].each do |size| %>
+    <%= render "ui/select", options: options, size: size, disabled: true %>
+  <% end %>
+</div>

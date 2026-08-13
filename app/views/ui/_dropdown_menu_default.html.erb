@@ -1,0 +1,18 @@
+<%= render "ui/dropdown_menu", align: "end" do %>
+  <button type="button" data-dropdown-trigger aria-haspopup="menu" aria-expanded="false"
+          variant="outline" size="sm">
+    <%= lucide_icon("ellipsis-vertical") %>
+  </button>
+
+  <div data-slot="dropdown-menu-content" role="menu" aria-orientation="vertical" data-state="closed">
+    <div role="menuitem" data-slot="dropdown-menu-item" data-variant="default">
+      <%= lucide_icon("pen") %><span>Edit location</span>
+    </div>
+    <div role="menuitem" data-slot="dropdown-menu-item" data-variant="default">
+      <%= lucide_icon("map-pin-off") %><span>Disable location</span>
+    </div>
+    <div role="menuitem" data-slot="dropdown-menu-item" data-variant="default">
+      <%= lucide_icon("copy") %><span>A very long menu label that will overflow the 300px max width and truncate with an ellipsis</span>
+    </div>
+  </div>
+<% end %>

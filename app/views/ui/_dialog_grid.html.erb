@@ -1,0 +1,17 @@
+<div class="flex flex-wrap gap-3 items-start">
+  <% %w[sm md lg].each do |size| %>
+    <button variant="primary" size="<%= size %>" data-dialog-trigger="dialog-<%= size %>">
+      Open <%= size %>
+    </button>
+
+    <%= render "ui/dialog", id: "dialog-#{size}", title: "Size: #{size}", description: "Example dialog at #{size} size.", size: size do %>
+      <div data-type="dialog-body">
+        <p class="text-sm text-muted-foreground">Dialog body content.</p>
+      </div>
+      <div data-type="dialog-footer">
+        <button type="button" variant="outline" size="<%= size %>" data-dialog-close>Cancel</button>
+        <button type="button" variant="primary" size="<%= size %>" data-dialog-close>Confirm</button>
+      </div>
+    <% end %>
+  <% end %>
+</div>

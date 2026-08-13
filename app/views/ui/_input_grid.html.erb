@@ -1,0 +1,11 @@
+<div class="grid grid-cols-3 gap-4 items-end">
+  <% %w[sm md lg].each do |size| %>
+    <%= render "ui/input", placeholder: "Default #{size}", size: size %>
+  <% end %>
+  <% %w[sm md lg].each do |size| %>
+    <%= render "ui/input", placeholder: "Invalid #{size}", size: size, invalid: true %>
+  <% end %>
+  <% %w[sm md lg].each do |size| %>
+    <%= render "ui/input", placeholder: "Disabled #{size}", size: size, disabled: true %>
+  <% end %>
+</div>

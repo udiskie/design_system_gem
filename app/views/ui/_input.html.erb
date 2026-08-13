@@ -1,0 +1,10 @@
+<%# locals: (placeholder: "", size: "md", disabled: false, invalid: false, name: nil, value: nil, type: "text") %>
+<input
+  type="<%= type %>"
+  data-size="<%= size %>"
+  placeholder="<%= placeholder %>"
+  <% if name %>name="<%= name %>"<% end %>
+  <% if value %>value="<%= value %>"<% end %>
+  <%= "disabled" if disabled %>
+  <%= 'aria-invalid="true"' if invalid %>
+/>
